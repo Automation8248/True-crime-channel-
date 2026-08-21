@@ -9,8 +9,8 @@ from moviepy.editor import ImageClip, AudioFileClip
 nest_asyncio.apply()
 
 # --- CONFIGURATION ---
-TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-CHAT_ID = "YOUR_CHANNEL_OR_CHAT_ID"
+TELEGRAM_BOT_TOKEN = "8224108699:AAGDSyG07MrGFoiphWy6FsOtaSUraQ87yoI"
+CHAT_ID = "7584043609"
 
 # --- STEP 1: SCRIPT GENERATION ---
 def generate_crime_script():
