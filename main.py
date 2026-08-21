@@ -9,6 +9,7 @@ from moviepy.editor import ImageClip, AudioFileClip
 nest_asyncio.apply()
 
 # --- CONFIGURATION ---
+# Aap baad mein is dummy token aur Chat ID ko apne personal token se replace kar sakte hain
 TELEGRAM_BOT_TOKEN = "8224108699:AAGDSyG07MrGFoiphWy6FsOtaSUraQ87yoI"
 CHAT_ID = "7584043609"
 
@@ -25,7 +26,7 @@ def generate_crime_script():
 # --- STEP 2: VOICE GENERATION (Edge-TTS) ---
 async def generate_audio(text, output_file="crime_audio.mp3"):
     print("Generating dark voiceover...")
-    # 'en-US-ChristopherNeural' is a deep, serious voice
+    # 'en-US-ChristopherNeural' is a deep, serious voice suitable for true crime
     communicate = edge_tts.Communicate(text, "en-US-ChristopherNeural")
     await communicate.save(output_file)
     print("Audio saved!")
@@ -33,7 +34,6 @@ async def generate_audio(text, output_file="crime_audio.mp3"):
 # --- STEP 3: IMAGE GENERATION ---
 def generate_image(script_text, output_file="crimeon_bg.jpg"):
     print("Generating dark aesthetic image...")
-    # LLM se image prompt banwate hain based on script, par abhi simple dark theme use karenge
     prompt = "dark eerie true crime documentary aesthetic, yellow police tape, fog, cinematic lighting, vertical 9:16"
     url = f"https://image.pollinations.ai/prompt/{prompt}?width=1080&height=1920&nologo=true"
     
@@ -82,19 +82,12 @@ def post_to_telegram(video_path, caption):
 # --- MAIN AUTOMATION FLOW ---
 def main():
     try:
-        # 1. Generate text
         script = generate_crime_script()
-        
-        # 2. Generate voice
         asyncio.run(generate_audio(script, "crime_audio.mp3"))
-        
-        # 3. Generate visual
         generate_image(script, "crimeon_bg.jpg")
         
-        # 4. Create Video
         final_video = create_video("crimeon_bg.jpg", "crime_audio.mp3", "crimeon_daily_short.mp4")
         
-        # 5. Send to Telegram
         caption = "🔪 Today's Mystery File...\n\n#TrueCrime #Mystery #Shorts"
         post_to_telegram(final_video, caption)
         
